@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Running Coach — Personalized Training Plans</title>
+  <meta name="description" content="Get a personalized training plan for 5K, 10K, half marathon, or marathon. Course-specific plans for Berlin, New York, Valencia, Marrakech, and more." />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header>
+    <h1>AI Running Coach</h1>
+    <p>Personalized training plans for 5K, 10K, Half Marathon, and Marathon</p>
+  </header>
+
+  <main>
+    <form id="plan-form">
+
+      <fieldset>
+        <legend>1. Your Race</legend>
+
+        <label>Distance</label>
+        <div class="radio-group">
+          <label><input type="radio" name="distance" value="5k" /> 5K</label>
+          <label><input type="radio" name="distance" value="10k" /> 10K</label>
+          <label><input type="radio" name="distance" value="21k" /> Half Marathon</label>
+          <label><input type="radio" name="distance" value="marathon" checked /> Marathon</label>
+        </div>
+
+        <div id="race-type-section">
+          <label>Race type</label>
+          <div class="radio-group">
+            <label><input type="radio" name="race_type" value="general" checked /> General (any race)</label>
+            <label><input type="radio" name="race_type" value="known" /> Known race (recommended)</label>
+          </div>
+
+          <div id="marathon-dropdown" style="display:none;">
+            <label for="marathon_key">Select marathon</label>
+            <select id="marathon_key" name="marathon_key">
+              <option value="berlin">Berlin Marathon</option>
+              <option value="london">London Marathon</option>
+              <option value="chicago">Chicago Marathon</option>
+              <option value="tokyo">Tokyo Marathon</option>
+              <option value="nyc">New York City Marathon</option>
+              <option value="boston">Boston Marathon</option>
+              <option value="sydney">Sydney Marathon</option>
+              <option value="paris">Paris Marathon</option>
+              <option value="marrakech">Marrakech Marathon</option>
+              <option value="casablanca">Casablanca Marathon</option>
+              <option value="amsterdam">Amsterdam Marathon</option>
+              <option value="malaga">Malaga Marathon</option>
+              <option value="valencia">Valencia Marathon</option>
+              <option value="sevilla">Sevilla Marathon</option>
+            </select>
+          </div>
+
+          <div id="custom-marathon-field" style="display:none;">
+            <label for="custom_marathon">Race name (optional)</label>
+            <input type="text" id="custom_marathon" name="custom_marathon" placeholder="e.g. Local City Marathon" />
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>2. Your Goal</legend>
+
+        <label for="goal">Goal</label>
+        <select id="goal" name="goal" required>
+          <option value="Finish">Finish</option>
+          <option value="Target time">Target time</option>
+          <option value="Personal best">Personal best</option>
+        </select>
+
+        <label for="target_time">Target time (optional, HH:MM:SS)</label>
+        <input type="text" id="target_time" name="target_time" placeholder="e.g. 03:45:00" />
+      </fieldset>
+
+      <fieldset>
+        <legend>3. Your Profile</legend>
+
+        <label for="age">Age</label>
+        <input type="number" id="age" name="age" min="14" max="90" required />
+
+        <label for="sex">Sex</label>
+        <select id="sex" name="sex" required>
+          <option value="M">Male</option>
+          <option value="F">Female</option>
+          <option value="Other">Other</option>
+        </select>
+
+        <label for="height_cm">Height (cm)</label>
+        <input type="number" id="height_cm" name="height_cm" min="100" max="250" required />
+
+        <label for="weight_kg">Weight (kg)</label>
+        <input type="number" id="weight_kg" name="weight_kg" min="30" max="200" required />
+      </fieldset>
+
+      <fieldset>
+        <legend>4. Running Background</legend>
+
+        <label for="pr_5k">PR 5K (optional)</label>
+        <input type="text" id="pr_5k" name="pr_5k" placeholder="e.g. 22:30" />
+
+        <label for="pr_10k">PR 10K (optional)</label>
+        <input type="text" id="pr_10k" name="pr_10k" placeholder="e.g. 48:30" />
+
+        <label for="pr_half">PR Half (optional)</label>
+        <input type="text" id="pr_half" name="pr_half" placeholder="e.g. 1:52:00" />
+
+        <label for="pr_marathon">PR Marathon (optional)</label>
+        <input type="text" id="pr_marathon" name="pr_marathon" placeholder="e.g. 4:10:00" />
+
+        <label for="weekly_km">Current weekly mileage (km)</label>
+        <input type="number" id="weekly_km" name="weekly_km" min="0" max="200" required />
+
+        <label for="days_per_week">Available training days per week</label>
+        <input type="number" id="days_per_week" name="days_per_week" min="1" max="7" required />
+      </fieldset>
+
+      <button type="submit" id="submit-btn">Generate My Program</button>
+    </form>
+
+    <section id="result-section" style="display:none;">
+      <div id="course-notes" class="card" style="display:none;"></div>
+      <div class="result-actions">
+        <button id="copy-btn" type="button">Copy</button>
+        <button id="download-btn" type="button">Download</button>
+        <button id="regenerate-btn" type="button">Regenerate</button>
+      </div>
+      
+      <!-- MODIFIÉ ICI : div à la place de pre -->
+      <div id="plan-output" class="markdown-body"></div>
+    </section>
+
+    <div id="loading" style="display:none;">Generating your plan... please wait (30-60 seconds).</div>
+    <div id="error" style="display:none;"></div>
+  </main>
+
+  <footer>
+    <p>AI Running Coach — Personalized training plans. Not medical advice.</p>
+  </footer>
+
+  <!-- AJOUTÉ ICI : bibliothèque marked -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
