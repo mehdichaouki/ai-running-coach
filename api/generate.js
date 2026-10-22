@@ -110,7 +110,7 @@ Generate the full week-by-week plan.`;
     if (!groqRes.ok) {
       const errText = await groqRes.text();
       console.error("Groq error:", errText);
-      return res.status(500).json({ error: "AI service unavailable. Check your Groq API key and limits." });
+      return res.status(500).json({ error: errText });
     }
 
     const data = await groqRes.json();
